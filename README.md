@@ -71,12 +71,6 @@ Tidak ada backend atau database. Semua perhitungan dilakukan langsung di sisi kl
    - Lihat hasil diagnosa dan saran
    - Klik **Reset** untuk mengosongkan semua pilihan
 
-## Bagian yang Perlu Diperhatikan
-
-- **Batas maksimum durasi** sekarang adalah 24 jam, sehingga hasil analisis lebih realistis.
-- **Skor Fuzzy** bersifat estimasi, bukan diagnosa medis.
-- **Sistem Pakar** menggunakan rule sederhana; hasilnya sebaiknya dipakai sebagai pengingat atau indikasi, bukan sebagai pengganti konsultasi profesional.
-
 ## Struktur File
 
 - `index.html` - Halaman utama dan layout
