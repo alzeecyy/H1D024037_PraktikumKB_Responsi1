@@ -1,4 +1,3 @@
-// Reset Form Pakar
 function resetPakar() {
   for (let i = 1; i <= 10; i++) {
     document.getElementById(`gejala-${i}`).checked = false;
@@ -8,14 +7,12 @@ function resetPakar() {
   document.getElementById("pakar-result-container").classList.add("hidden");
 }
 
-// Logika Diagnosa Pakar
 function diagnosa() {
   let gejalaTerpilih = 0;
-  let gejalaFisik = 0; // Gejala 1, 2, 10
-  let gejalaPsikologis = 0; // Gejala 3, 4, 7, 8
-  let gejalaSosial = 0; // Gejala 5, 6, 9
+  let gejalaFisik = 0;
+  let gejalaPsikologis = 0;
+  let gejalaSosial = 0;
 
-  // Hitung gejala
   for (let i = 1; i <= 10; i++) {
     if (document.getElementById(`gejala-${i}`).checked) {
       gejalaTerpilih++;
@@ -31,12 +28,10 @@ function diagnosa() {
   let analisis = `Anda mengalami ${gejalaTerpilih} dari 10 gejala kecanduan. `;
   let solusi = "";
 
-  // Analisis detail berdasarkan tipe gejala
   if (gejalaFisik >= 2) analisis += "Terdapat dampak fisik yang signifikan. ";
   if (gejalaPsikologis >= 2) analisis += "Mental dan psikologis Anda mulai terganggu. ";
   if (gejalaSosial >= 2) analisis += "Kehidupan sosial dan produktivitas Anda ikut terdampak. ";
 
-  // Penentuan Rules
   if (gejalaTerpilih >= 8) {
     kategori = "KECANDUAN BERAT";
     badgeClass = "badge-danger";
@@ -55,14 +50,12 @@ function diagnosa() {
     solusi = "Pola penggunaan gawai Anda sangat sehat. Pertahankan kedisiplinan ini dan gunakan teknologi hanya untuk produktivitas!";
   }
 
-  // Tampilkan hasil
   document.getElementById("pakar-empty-state").classList.add("hidden");
   const resultContainer = document.getElementById("pakar-result-container");
   resultContainer.classList.remove("hidden");
   
-  // Animasi fade in
   resultContainer.style.animation = 'none';
-  resultContainer.offsetHeight; // trigger reflow
+  resultContainer.offsetHeight;
   resultContainer.style.animation = 'fadeIn 0.5s ease';
 
   document.getElementById("pakar-score").innerText = persentase + "%";
