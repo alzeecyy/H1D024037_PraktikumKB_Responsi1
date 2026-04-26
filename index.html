@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analisis Doomscrolling</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span>Doomscrolling</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" class="active" onclick="showPage('beranda')">Beranda</a></li>
+      <li><a href="#" onclick="showPage('fuzzy')">Fuzzy Logic</a></li>
+      <li><a href="#" onclick="showPage('pakar')">Sistem Pakar</a></li>
+      <li><a href="#" onclick="showPage('tentang')">Tentang</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Container -->
+  <main class="main-content">
+
+    <!-- BERANDA PAGE -->
+    <section id="beranda" class="page-section active">
+      <div class="hero-section">
+        <h1 class="hero-title">Analisis Doomscrolling</h1>
+        <p class="hero-subtitle">Selamat datang! Website ini merupakan implementasi dari metode Fuzzy Logic untuk penentuan tingkat bahaya doomscrolling dan Sistem Pakar untuk diagnosa tingkat kecanduan.</p>
+        
+        <div class="cards-container">
+          <!-- Card 1 -->
+          <div class="feature-card">
+            <h2 class="card-title">Sistem Fuzzy Logic</h2>
+            <p class="card-desc">Analisis tingkat keparahan kebiasaan doomscrolling berdasarkan durasi, frekuensi, gangguan produktivitas, dan waktu penggunaan.</p>
+            <button class="btn-primary" onclick="showPage('fuzzy')">Mulai Analisis</button>
+          </div>
+          
+          <!-- Card 2 -->
+          <div class="feature-card">
+            <h2 class="card-title">Sistem Pakar</h2>
+            <p class="card-desc">Diagnosa tingkat kecanduan doomscrolling berdasarkan gejala fisik, sosial, dan psikologis menggunakan metode rule-based.</p>
+            <button class="btn-primary" onclick="showPage('pakar')">Mulai Konsultasi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUZZY PAGE -->
+    <section id="fuzzy" class="page-section">
+      <div class="split-layout">
+        <!-- Left Side: Inputs -->
+        <div class="input-panel">
+          <h2 class="panel-title">Analisis Doomscrolling</h2>
+          
+          <div class="slider-group">
+            <div class="slider-header">
+              <label>Durasi Screen Time (jam)</label>
+              <span class="slider-value" id="val-durasi">6</span>
+            </div>
+            <input type="range" id="durasi" min="0" max="12" value="6" class="custom-slider" oninput="updateSliderValue('durasi')">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-header">
+              <label>Frekuensi Buka (kali/hari)</label>
+              <span class="slider-value" id="val-frekuensi">50</span>
+            </div>
+            <input type="range" id="frekuensi" min="0" max="100" value="50" class="custom-slider" oninput="updateSliderValue('frekuensi')">
+          </div>
+
+          <div class="form-group">
+            <label>Gangguan Produktivitas</label>
+            <div class="select-wrapper">
+              <select id="gangguan">
+                <option value="rendah">Tidak terganggu</option>
+                <option value="sedang">Sedikit terganggu</option>
+                <option value="tinggi">Sangat terganggu</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Waktu Penggunaan Utama</label>
+            <div class="select-wrapper">
+              <select id="waktu">
+                <option value="pagi">Pagi</option>
+                <option value="siang">Siang</option>
+                <option value="malam">Malam</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button class="btn-primary" onclick="hitungFuzzy()">Analisis</button>
+            <button class="btn-outline" onclick="resetFuzzy()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="result-panel">
+          <h2 class="result-title">Hasil Analisis Fuzzy</h2>
+          
+          <div id="fuzzy-result-container" class="result-display hidden">
+            <div class="score-display" id="fuzzy-score">-</div>
+            <div class="badge-display" id="fuzzy-badge">BELUM ADA HASIL</div>
+            
+            <div class="explanation-box">
+              <h4>Penjelasan:</h4>
+              <p id="fuzzy-explanation">Silakan lakukan analisis terlebih dahulu.</p>
+            </div>
+            
+            <div class="explanation-box">
+              <h4>Saran:</h4>
+              <p id="fuzzy-advice">-</p>
+            </div>
+          </div>
+
+          <div id="fuzzy-empty-state" class="empty-state">
+            <p>Isi form di samping lalu klik tombol Analisis untuk melihat hasil.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAKAR PAGE -->
+    <section id="pakar" class="page-section">
+      <div class="split-layout">
+        <!-- Left Side: Inputs -->
+        <div class="input-panel">
+          <h2 class="panel-title">Sistem Pakar Diagnosa</h2>
+          <p class="panel-subtitle">Pilih gejala yang sering kamu alami belakangan ini:</p>
+          
+          <div class="checkbox-container">
+            <!-- 10 Questions -->
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-1"><span class="checkmark"></span><span class="label-text">Sering scroll HP hingga larut malam (kurang tidur)</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-2"><span class="checkmark"></span><span class="label-text">Mata terasa lelah, perih, atau kering</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-3"><span class="checkmark"></span><span class="label-text">Merasa cemas jika tidak memegang HP</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-4"><span class="checkmark"></span><span class="label-text">Kesulitan berhenti scroll meski sudah niat berhenti</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-5"><span class="checkmark"></span><span class="label-text">Menunda tugas atau pekerjaan penting demi scroll</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-6"><span class="checkmark"></span><span class="label-text">Mengabaikan orang di sekitar (keluarga/teman)</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-7"><span class="checkmark"></span><span class="label-text">Merasa waktu terbuang sia-sia setelah scroll</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-8"><span class="checkmark"></span><span class="label-text">Suasana hati memburuk setelah melihat berita negatif</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-9"><span class="checkmark"></span><span class="label-text">Cenderung memeriksa HP saat bangun dan sebelum tidur</span></label>
+            <label class="custom-checkbox"><input type="checkbox" id="gejala-10"><span class="checkmark"></span><span class="label-text">Sakit pada leher atau jari karena posisi memegang HP lama</span></label>
+          </div>
+
+          <div class="button-group">
+            <button class="btn-primary" onclick="diagnosa()">Konsultasi</button>
+            <button class="btn-outline" onclick="resetPakar()">Reset</button>
+          </div>
+        </div>
+
+        <!-- Right Side: Results -->
+        <div class="result-panel">
+          <h2 class="result-title">Hasil Diagnosa Pakar</h2>
+          
+          <div id="pakar-result-container" class="result-display hidden">
+            <div class="score-display" id="pakar-score">-</div>
+            <div class="badge-display" id="pakar-badge">BELUM ADA HASIL</div>
+            
+            <div class="explanation-box">
+              <h4>Analisis Gejala:</h4>
+              <p id="pakar-explanation">Silakan lakukan konsultasi terlebih dahulu.</p>
+            </div>
+            
+            <div class="explanation-box">
+              <h4>Solusi & Perawatan:</h4>
+              <p id="pakar-advice">-</p>
+            </div>
+          </div>
+
+          <div id="pakar-empty-state" class="empty-state">
+            <p>Pilih gejala yang kamu alami di samping lalu klik tombol Konsultasi.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TENTANG PAGE -->
+    <section id="tentang" class="page-section">
+      <div class="hero-section">
+        <h1 class="hero-title">Tentang Sistem Ini</h1>
+        <div class="feature-card" style="text-align: left; max-width: 800px; margin: 0 auto;">
+          <p style="margin-bottom: 15px; line-height: 1.6; color: var(--text-dark);"><strong>Doomscrolling</strong> adalah kebiasaan menghabiskan banyak waktu untuk membaca berita negatif atau menelusuri media sosial tanpa henti. Sistem ini dirancang untuk membantu pengguna menyadari kebiasaan tersebut melalui dua metode pendekatan kecerdasan buatan:</p>
+          <ul style="margin-left: 20px; margin-bottom: 15px; line-height: 1.6; color: var(--text-dark);">
+            <li><strong>Fuzzy Logic:</strong> Menghitung tingkat bahaya berdasarkan parameter durasi, frekuensi, dan intensitas waktu penggunaan yang bernilai dinamis (kabur).</li>
+            <li><strong>Sistem Pakar:</strong> Mendiagnosis tingkat kecanduan berdasarkan himpunan gejala yang dialami oleh pengguna menggunakan rule-based reasoning sederhana.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Analisis Doomscrolling Berbasis AI 🧠</p>
+  </footer>
+
+  <script src="js/fuzzy.js"></script>
+  <script src="js/pakar.js"></script>
+</body>
+</html>
